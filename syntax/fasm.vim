@@ -55,7 +55,7 @@ syn keyword fasmDataDirectives db dd df dp dq dt du dw file rb rd rf rp rq rt rw
 syn keyword fasmInstr aaa aad aam aas adc adcx add addpd addps addsd addss addsubpd addsubps adox
 syn keyword fasmInstr aesdec aesdeclast aesenc aesenclast aesimc aeskeygenassist and andn andnpd
 syn keyword fasmInstr andnps andpd andps arpl bextr blendpd blendps blendvpd blendvps blsi blsmsk blsr
-syn keyword fasmInstr bound bsf bsr bswap bt btc btr bts bzhi call cbw cdq cdqe clac clc cld clflush
+syn keyword fasmInstr bound bsf bsr bswap bt btc btr bts bzhi      cbw cdq cdqe clac clc cld clflush
 syn keyword fasmInstr cli clts cmc cmova cmovae cmovb cmovbe cmovc cmove cmovg cmovge cmovl cmovle
 syn keyword fasmInstr cmovna cmovnae cmovnb cmovnbe cmovnc cmovne cmovng cmovnge cmovnl cmovnle cmovno
 syn keyword fasmInstr cmovnp cmovns cmovnz cmovo cmovp cmovpe cmovpo cmovs cmovz cmp cmpeqpd cmpeqps
@@ -77,9 +77,8 @@ syn keyword fasmInstr frstor frstpm fsave fscale fsetpm fsin fsincos fsqrt fst f
 syn keyword fasmInstr fsub fsubp fsubr fsubrp ftst fucom fucomi fucomip fucomp fucompp fwait fxam fxch
 syn keyword fasmInstr fxrstor fxsave fxtract fyl2x fyl2xp1 getsec haddpd haddps heap hlt hsubpd hsubps
 syn keyword fasmInstr idiv imul in inc ins insb insd insertps insertq insw int int1 int3 into invd invept
-syn keyword fasmInstr invlpg invpcid invvpid iret iretd iretw ja jae jb jbe jc jcxz je jecxz jg jge jl
-syn keyword fasmInstr jle jmp jna jnae jnb jnbe jnc jne jng jnge jnl jnle jno jnp jns jnz jo jp jpe
-syn keyword fasmInstr jpo js jz lahf lar lddqu ldmxcsr lds lea leave les lfence lfs lgdt lgs lidt lldt
+syn keyword fasmInstr invlpg invpcid invvpid iret iretd iretw                                         
+syn keyword fasmInstr lahf lar lddqu ldmxcsr lds lea leave les lfence lfs lgdt lgs lidt lldt
 syn keyword fasmInstr lmsw load loadall286 loadall386 lock lods lodsb lodsd lodsq lodsw loop loopd
 syn keyword fasmInstr loope looped loopew loopne loopned loopnz loopnzd loopnzw loopw loopz loopzd
 syn keyword fasmInstr loopzw lsl lss ltr lzcnt maskmovdqu maskmovq maxpd maxps maxsd maxss mfence
@@ -172,6 +171,11 @@ syn region  fasmString          start="'" end="'\|$"
 syn match   fasmSymbol          "[()|\[\]:]"
 syn match   fasmSpecial         "[#?%$,]"
 syn match   fasmLabel           "^\s*[^; \t]\+:"
+syn region  fasmCallLabel       matchgroup=fasmCall start="call\s*" matchgroup=Label end="\s\|$"
+syn region  fasmJumpToLabel     matchgroup=fasmJump start="j[abceglmnopsz][abceglopsxz]\?[exz]\?[z]\?\s*" matchgroup=Label end="\s\|$"
+
+syn case match
+syn match   fasmConstant        "\<[A-Z_][0-9A-Z_]*\>"
 
 hi def link fasmAddressSizes    type
 hi def link fasmNumericOperator fasmOperator
@@ -193,12 +197,17 @@ hi def link fasmNumber          Constant
 hi def link fasmString          String
 hi def link fasmComment         Comment
 hi def link fasmOperator        Special
-hi def link fasmLabel           Underlined
+hi def link fasmLabel           Identifier
+hi def link fasmCall            Keyword
+hi def link fasmJump            Keyword
+hi def link fasmCallLabel       Identifier
+hi def link fasmJumpToLabel     Identifier
 hi def link fasmSymbol          Structure
 hi def link fasmSpecial         Special
 hi def link fasmMacros          Identifier
 hi def link fasmDirective       PreProc
 hi def link fasmDataDirectives  rubyDefine
+hi def link fasmConstant        Constant
 
 let b:current_syntax = "fasm"
 
