@@ -153,7 +153,7 @@ syn keyword fasmPreprocess     define equ fix forward include irp irps
 syn keyword fasmPreprocess     local macro match purge rept restore restruc struc
 syn keyword fasmDirective      assert binary code coff console data display discardable dll dynamic elf elf64 else end
 syn keyword fasmDirective      entry executable efiboot err far fixups format gui if import interpreter label library linkinfo
-syn keyword fasmDirective      ms ms64 mz native near needed notpageable pe pe64 resource readable repeat section
+syn keyword fasmDirective      ms ms64 mz native near needed notpageable pe pe64 resource readable repeat while section
 syn keyword fasmDirective      shareable static segment use16 use32 use64 virtual wdm writable writeable
 syn keyword fasmOperator       align as at defined eq eqtype from mod on ptr rva relativeto used
 
